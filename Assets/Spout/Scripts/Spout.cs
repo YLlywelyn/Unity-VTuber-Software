@@ -60,7 +60,7 @@ namespace Spout{
 		//To get a reference to the GameView
 		private static System.Reflection.Assembly assembly;
 		private static System.Type gameviewType;
-		private static UnityEditor.EditorWindow gameview;
+		//private static UnityEditor.EditorWindow gameview;
 		#endif
 
 		#pragma warning disable 414
@@ -119,7 +119,7 @@ namespace Spout{
 
 		//
 		public void Awake(){
-			Debug.Log("Spout.Awake");
+			//Debug.Log("Spout.Awake");
 		
 			if(_instance != null && _instance != this )
 			{
@@ -164,7 +164,7 @@ namespace Spout{
 			#if UNITY_EDITOR
 			assembly = typeof(UnityEditor.EditorWindow).Assembly;
 			gameviewType = assembly.GetType( "UnityEditor.GameView" );
-			gameview = UnityEditor.EditorWindow.GetWindow(gameviewType);
+			//gameview = UnityEditor.EditorWindow.GetWindow(gameviewType);
 			#endif
 
 
@@ -228,7 +228,7 @@ namespace Spout{
 			_frameCounter %= _editorUpdateFrameInterval;
 			if(_frameCounter == 0){
 				UnityEditor.SceneView.RepaintAll();
-				gameview.Repaint();
+				//gameview.Repaint();
 			}
 			#endif
 
@@ -378,7 +378,7 @@ namespace Spout{
 				if(tex.name == sharingName) return tex;
 			}
 			
-			if(sharingName != Spout.fakeName) Debug.Log (String.Format("sharing name {0} not found",sharingName));
+			//if(sharingName != Spout.fakeName) Debug.Log (String.Format("sharing name {0} not found",sharingName));
 			
 			return null;
 		}	
@@ -452,23 +452,23 @@ namespace Spout{
 		
 		private  void SenderStarted(string senderName, IntPtr resourceView,int textureWidth, int textureHeight)
 		{
-			Debug.Log("Spout. Sender started, sender name : "+senderName);
+			//Debug.Log("Spout. Sender started, sender name : "+senderName);
 			if(_instance == null || _instance.activeLocalSenders == null || _instance.newSenders == null)return;
 			lock(this){
 				TextureInfo texInfo = new TextureInfo(senderName);
-				Debug.Log("resourceView:"+resourceView.ToInt32());
+				//Debug.Log("resourceView:"+resourceView.ToInt32());
 				texInfo.setInfos(textureWidth,textureHeight,resourceView);
 				_instance.newSenders.Add(texInfo);
 				if(_instance.localSenderNames.Contains(texInfo.name)){
 				_instance.activeLocalSenders.Add(texInfo);
 				//Debug.Log("activeLocalSenders.count:"+_instance.activeLocalSenders.Count);
 				}
-				Debug.Log("Spout.SenderStarted.End");
+				//Debug.Log("Spout.SenderStarted.End");
 			}//lock
 		}
 		private  void SenderStopped(string senderName)
 		{
-			Debug.Log("Sender stopped, sender name : "+senderName);
+			//Debug.Log("Sender stopped, sender name : "+senderName);
 			if(_instance == null || _instance.activeLocalSenders == null || _instance.stoppedSenders == null)return;
 			lock(this){
 				TextureInfo texInfo = new TextureInfo(senderName);
@@ -487,7 +487,7 @@ namespace Spout{
 
 		private void StopAllLocalSenders(){
 
-			Debug.Log("Spout.StopAllLocalSenders()"); 
+			//Debug.Log("Spout.StopAllLocalSenders()"); 
 			if(_instance == null) return;
 			foreach(TextureInfo t in _instance.activeLocalSenders)
 			{	

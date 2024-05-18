@@ -7,6 +7,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 namespace Spout{
 [Serializable]
@@ -140,10 +141,14 @@ namespace Spout{
 			get { return _texture; }
 			set {
 				_texture = value;
-				if(_texture == null) _texture = Spout.nullTexture;
-				if(GetComponent<Renderer>() != null)
+				if (_texture == null) _texture = Spout.nullTexture;
+				if (GetComponent<Renderer>() != null)
 				{
 					GetComponent<Renderer>().sharedMaterial.mainTexture = _texture;
+				}
+				if (GetComponent<RawImage>() != null)
+				{
+					GetComponent<RawImage>().texture = _texture;
 				}
 			}
 		}

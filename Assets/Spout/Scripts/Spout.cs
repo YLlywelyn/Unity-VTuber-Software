@@ -88,6 +88,8 @@ namespace Spout{
 		private int _frameCounter;
 		#endregion
 
+		public Texture2D noSignalTexture;
+
 		[SerializeField]
 		private static Texture2D _nullTexture ;
 		public static Texture2D nullTexture{
@@ -138,7 +140,7 @@ namespace Spout{
 			activeLocalSenders = new List<TextureInfo>();
 			localSenderNames = new HashSet<string>();
 
-			_nullTexture = new Texture2D(32,32);
+			_nullTexture = noSignalTexture ?? new Texture2D(32,32);
 			_nullTexture.hideFlags = HideFlags.HideAndDontSave;
 
 		}

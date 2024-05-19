@@ -4,8 +4,10 @@ using TwitchChatConnect.Client;
 using TwitchChatConnect.Data;
 using UnityEngine;
 
-public class TwitchChatHandler : MonoBehaviour
+public class UIChatHandler : MonoBehaviour
 {
+    public UIChatMessage chatMessagePrefab;
+
     public string[] bannedWords;
 
     void Start()
@@ -36,5 +38,9 @@ public class TwitchChatHandler : MonoBehaviour
         }
 
         Debug.Log(string.Format("{0} said {1}", message.User.DisplayName, message.Message));
+
+        UIChatMessage uiMessage = Instantiate<UIChatMessage>(chatMessagePrefab, transform);
+        uiMessage.transform.SetAsFirstSibling();
+        uiMessage.message = message;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using TwitchChatConnect.Config;
@@ -29,6 +30,12 @@ namespace TwitchChatConnect.Client
         private TwitchConnectConfig _twitchConnectConfig;
 
         private bool _isAuthenticated;
+
+        /// <summary>
+        /// Key: emote ID
+        /// Value: The emote
+        /// </summary>
+        public static Dictionary<string, Texture2D> emoteCache = new Dictionary<string, Texture2D>();
 
         private const string COMMAND_PONG = "PONG :tmi.twitch.tv";
 
@@ -230,7 +237,7 @@ namespace TwitchChatConnect.Client
                 case TwitchInputType.MESSAGE_CHAT:
                     {
                         TwitchChatMessageParser payload = new TwitchChatMessageParser(inputLine);
-                        TwitchChatMessage chatMessage = new TwitchChatMessage(payload.User, payload.Sent, payload.Bits, payload.Id);
+                        TwitchChatMessage chatMessage = new TwitchChatMessage(payload.User, payload.Sent, payload.Bits, payload.Emotes, payload.Id);
                         onChatMessageReceived?.Invoke(chatMessage);
                     }
                     break;

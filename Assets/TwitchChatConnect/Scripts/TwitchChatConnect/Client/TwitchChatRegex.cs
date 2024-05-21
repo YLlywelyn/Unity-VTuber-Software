@@ -27,12 +27,16 @@ namespace TwitchChatConnect.Client
         public const string IdMessageExpression = @"msg-id=(.+?);";
         public const string CheerExpression = @"(?:\s|^)cheer([0-9]+)(?:\s|$)";
 
+        public const string EmoteExpression = @"(([a-z0-9_]+):([0-9]+)-([0-9]+)/?)+";
+
         public static Regex JoinRegex { get; private set; } = new Regex(JoinExpression);
         public static Regex PartRegex { get; private set; } = new Regex(PartExpression);
         public static Regex MessageRegex { get; private set; } = new Regex(MessageExpression);
         public static Regex RewardRegex { get; private set; } = new Regex(RewardExpression);
         public static Regex IdMessageRegex { get; private set; } = new Regex(IdMessageExpression);
         public static Regex CheerRegex { get; private set; } = new Regex(CheerExpression, RegexOptions.IgnoreCase);
+
+        public static Regex EmoteRegex { get; private set; } = new Regex(EmoteExpression);
 
         public static List<TwitchUserBadge> BuildBadges(string badgesText)
         {

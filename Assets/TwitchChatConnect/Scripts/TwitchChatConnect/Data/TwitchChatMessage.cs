@@ -1,4 +1,7 @@
-﻿namespace TwitchChatConnect.Data
+﻿using System;
+using System.Collections.Generic;
+
+namespace TwitchChatConnect.Data
 {
     public class TwitchChatMessage
     {
@@ -12,12 +15,16 @@
 
         public bool IsHighlighted => _idMessage == MESSAGE_HIGHLIGHTED;
 
-        public TwitchChatMessage(TwitchUser user, string message, int bits, string idMessage = "")
+        public List<Tuple<string, int, int>> Emotes { get; } = new List<Tuple<string, int, int>>();
+
+        public TwitchChatMessage(TwitchUser user, string message, int bits, string idMessage = "") : this(user, message, bits, new List<Tuple<string, int, int>>(), idMessage) { }
+        public TwitchChatMessage(TwitchUser user, string message, int bits, List<Tuple<string, int, int>> emotes, string idMessage = "")
         {
             Message = message;
             User = user;
             Bits = bits;
             _idMessage = idMessage;
+            this.Emotes = emotes;
         }
     }
 }

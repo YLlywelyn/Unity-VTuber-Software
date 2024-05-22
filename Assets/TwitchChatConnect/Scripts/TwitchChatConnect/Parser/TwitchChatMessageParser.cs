@@ -16,7 +16,7 @@ namespace TwitchChatConnect.Parser
         public int Bits { get; }
         public IReadOnlyList<TwitchUserBadge> Badges { get; }
 
-        public List<Tuple<string, int, int>> Emotes { get; } = new List<Tuple<string, int, int>>();
+        public List<Tuple<TwitchEmote, int, int>> Emotes { get; } = new List<Tuple<TwitchEmote, int, int>>();
 
         public string rawMessage { get; }
 
@@ -52,8 +52,12 @@ namespace TwitchChatConnect.Parser
             MatchCollection emoteMatches = TwitchChatRegex.EmoteRegex.Matches(command.Message);
             foreach (Match match in emoteMatches)
             {
-                Debug.Log(string.Format("Emote match: \"{0}\", {1}-{2}", match.Groups[2], match.Groups[3], match.Groups[4]));
-                Emotes.Add(new Tuple<string, int, int>(match.Groups[2].Value, int.Parse(match.Groups[3].Value), int.Parse(match.Groups[4].Value)));
+                foreach (Capture capture in match.Groups[2].Captures)
+                {
+                    Match m = Regex.Match(capture.Value, @"([0-9]+)-([0-9]+)");
+                    (int, int) position = (int.Parse(m.Groups[1].Value), int.Parse(m.Groups[2].Value));
+                    Emotes.Add(new Tuple<TwitchEmote, int, int>(TwitchEmote.GetEmoteById(match.Groups[1].Value), position.Item1, position.Item2));
+                }
             }
         }
     }

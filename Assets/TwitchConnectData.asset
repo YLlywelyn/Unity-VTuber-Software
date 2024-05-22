@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   twitchConnectConfig:
     username: ylva_the_chatbot
-    userToken: oauth:yk1kepl9p3l1a42fa0ec1gq97caua5
+    userToken: oauth:nxselx4diwls2xgggbh40gidbzwa7n
     channelName: ylva_the_voiceless

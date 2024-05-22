@@ -15,10 +15,10 @@ namespace TwitchChatConnect.Data
 
         public bool IsHighlighted => _idMessage == MESSAGE_HIGHLIGHTED;
 
-        public List<Tuple<string, int, int>> Emotes { get; } = new List<Tuple<string, int, int>>();
+        public List<Tuple<TwitchEmote, int, int>> Emotes { get; } = new List<Tuple<TwitchEmote, int, int>>();
 
-        public TwitchChatMessage(TwitchUser user, string message, int bits, string idMessage = "") : this(user, message, bits, new List<Tuple<string, int, int>>(), idMessage) { }
-        public TwitchChatMessage(TwitchUser user, string message, int bits, List<Tuple<string, int, int>> emotes, string idMessage = "")
+        public TwitchChatMessage(TwitchUser user, string message, int bits, string idMessage = "") : this(user, message, bits, new List<Tuple<TwitchEmote, int, int>>(), idMessage) { }
+        public TwitchChatMessage(TwitchUser user, string message, int bits, List<Tuple<TwitchEmote, int, int>> emotes, string idMessage = "")
         {
             Message = message;
             User = user;

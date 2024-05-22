@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using TwitchChatConnect.Config;
 using TwitchChatConnect.Data;
@@ -60,6 +61,9 @@ namespace TwitchChatConnect.Client
 
         public delegate void OnTwitchInputLine(TwitchInputLine twitchInput);
         public OnTwitchInputLine onTwitchInputLine { get; set; }
+
+        public delegate void OnTwitchMessageEmotes(string emoteid);
+        public OnTwitchMessageEmotes onTwitchMessageEmotes { get; set; }
 
         public delegate void OnError(string errorMessage);
 
@@ -239,6 +243,14 @@ namespace TwitchChatConnect.Client
                         TwitchChatMessageParser payload = new TwitchChatMessageParser(inputLine);
                         TwitchChatMessage chatMessage = new TwitchChatMessage(payload.User, payload.Sent, payload.Bits, payload.Emotes, payload.Id);
                         onChatMessageReceived?.Invoke(chatMessage);
+
+                        if (payload.Emotes.Count > 0)
+                        {
+                            foreach (Tuple<TwitchEmote, int, int> emote in payload.Emotes)
+                            {
+                                onTwitchMessageEmotes?.Invoke(emote.Item1.id);
+                            }
+                        }
                     }
                     break;
 

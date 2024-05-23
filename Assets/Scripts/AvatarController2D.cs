@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TwitchChatConnect.Client;
+using TwitchChatConnect.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,10 +16,27 @@ public class AvatarController2D: MonoBehaviour
     private bool isBlinking;
     private bool isTalking;
 
-    void Start()
+    private Queue<TwitchChatMessage> messageQueue;
+
+    private void Start()
     {
         sprite = GetComponent<Image>();
         UpdateSprite();
+
+        TwitchChatClient.instance.onBroadcasterMessageReceived += OnBroadcasterMessage;
+    }
+
+    private void Update()
+    {
+        if (messageQueue.Count > 0)
+        {
+            // TODO: Dequeue message and display it if one is not already being displayed
+        }
+    }
+
+    private void OnBroadcasterMessage(TwitchChatMessage message)
+    {
+        messageQueue.Enqueue(message);
     }
 
     private void UpdateSprite()

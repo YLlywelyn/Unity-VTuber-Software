@@ -52,6 +52,7 @@ namespace TwitchChatConnect.Client
 
         public delegate void OnChatMessageReceived(TwitchChatMessage chatMessage);
         public OnChatMessageReceived onChatMessageReceived { get; set; }
+        public OnChatMessageReceived onBroadcasterMessageReceived { get; set; }
 
         public delegate void OnChatCommandReceived(TwitchChatCommand chatCommand);
         public OnChatCommandReceived onChatCommandReceived { get; set; }
@@ -242,7 +243,11 @@ namespace TwitchChatConnect.Client
                     {
                         TwitchChatMessageParser payload = new TwitchChatMessageParser(inputLine);
                         TwitchChatMessage chatMessage = new TwitchChatMessage(payload.User, payload.Sent, payload.Bits, payload.Emotes, payload.Id);
-                        onChatMessageReceived?.Invoke(chatMessage);
+
+                        if (chatMessage.User.DisplayName.ToLower() == _twitchConnectConfig.ChannelName.ToLower())
+                            onBroadcasterMessageReceived?.Invoke(chatMessage);
+                        else
+                            onChatMessageReceived?.Invoke(chatMessage);
 
                         if (payload.Emotes.Count > 0)
                         {

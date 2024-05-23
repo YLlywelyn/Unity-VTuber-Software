@@ -14,13 +14,21 @@ public class UIChatMessage : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI messageText;
 
-    void Start()
+    public RectTransform rectTransform { get { return (RectTransform)transform; } }
+
+    private void Start()
     {
         nameText.text = message.User.DisplayName;
         messageText.text = message.Message;
 
         if (destroyAfterSeconds > 0f)
             StartCoroutine(DestroyTimer());
+    }
+
+    private void Update()
+    {
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, ((messageText.textInfo.lineCount + 1) * 20) + 30);
+        Debug.Log("line count: " + messageText.textInfo.lineCount);
     }
 
     IEnumerator DestroyTimer()

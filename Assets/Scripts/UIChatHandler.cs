@@ -8,12 +8,17 @@ public class UIChatHandler : MonoBehaviour
 {
     public UIChatMessage chatMessagePrefab;
 
+    public bool handleBroadcasterMessages = false;
+
     public string[] bannedWords;
 
     void Start()
     {
         TwitchChatClient.instance.Init(TwitchChatInitialized, TwitchChatInitializationError);
         TwitchChatClient.instance.onChatMessageReceived += OnChatMessageRecieved;
+
+        if (handleBroadcasterMessages)
+            TwitchChatClient.instance.onBroadcasterMessageReceived += OnChatMessageRecieved;
     }
 
     void TwitchChatInitialized()

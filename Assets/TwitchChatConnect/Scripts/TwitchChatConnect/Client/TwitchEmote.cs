@@ -37,7 +37,7 @@ public class TwitchEmote
 
 		using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(string.Format("https://static-cdn.jtvnw.net/emoticons/v2/{0}/{1}/dark/3.0", id, EMOTE_FORMAT)))
 		{
-			Debug.Log("Emote URL: " + request.url);
+			// Debug.Log("Emote URL: " + request.url);
 			request.SetRequestHeader("Client-ID", CLIENT_ID);
 			request.SetRequestHeader("Authorization", "Bearer nxselx4diwls2xgggbh40gidbzwa7n");
 			yield return request.SendWebRequest();

@@ -227,6 +227,7 @@ MonoBehaviour:
   destroyAfterSeconds: 30
   nameText: {fileID: 3423646432670823246}
   messageText: {fileID: 9220398202582979963}
+  messageHeightMultiplier: 48
 --- !u!1 &6834315541233320297
 GameObject:
   m_ObjectHideFlags: 0

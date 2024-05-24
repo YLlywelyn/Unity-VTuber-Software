@@ -2,36 +2,68 @@ using System.Collections;
 using System.Collections.Generic;
 using TwitchChatConnect.Client;
 using TwitchChatConnect.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AvatarController2D: MonoBehaviour
 {
+    public Image sprite;
+
     public Sprite normal;
     public Sprite blinking;
     public Sprite talking;
     public Sprite blinking_talking;
 
-    private Image sprite;
     private bool isBlinking;
     private bool isTalking;
 
-    private Queue<TwitchChatMessage> messageQueue;
+    private Queue<TwitchChatMessage> messageQueue = new Queue<TwitchChatMessage>();
+
+    public UISpeechBubble speechBubblePrefab;
+    private UISpeechBubble speechBubble;
+
+    [Min(0.01f)]
+    public float spriteMovementSpeed = 1.0f;
+    public float spriteMovementScale = 1f;
+    Vector2 spriteTarget;
+    public float minDistanceToNewTarget = 0.05f;
+    public float distanceThreshold = 0.05f;
+
+    public RectTransform rectTransform { get { return (RectTransform)transform; } }
 
     private void Start()
     {
-        sprite = GetComponent<Image>();
         UpdateSprite();
+
+        spriteTarget = GetRandomTarget();
 
         TwitchChatClient.instance.onBroadcasterMessageReceived += OnBroadcasterMessage;
     }
 
     private void Update()
     {
-        if (messageQueue.Count > 0)
+        if (messageQueue.Count > 0 && speechBubble == null)
         {
-            // TODO: Dequeue message and display it if one is not already being displayed
+            speechBubble = Instantiate(speechBubblePrefab, transform);
+            speechBubble.message = messageQueue.Dequeue();
         }
+
+        UpdateSprite();
+
+        if (Vector2.Distance(rectTransform.anchoredPosition, spriteTarget) <= distanceThreshold)
+            spriteTarget = GetRandomTarget();
+        rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, spriteTarget, Time.deltaTime * spriteMovementSpeed);
+    }
+
+    Vector2 GetRandomTarget()
+    {
+        Vector2 newTarget = new Vector2(Random.Range(-spriteMovementScale, spriteMovementScale),
+                                        Random.Range(-spriteMovementScale, spriteMovementScale));
+        while (Vector2.Distance(rectTransform.anchoredPosition, newTarget) < minDistanceToNewTarget)
+            newTarget = new Vector2(Random.Range(-spriteMovementScale, spriteMovementScale),
+                                    Random.Range(-spriteMovementScale, spriteMovementScale));
+        return newTarget;
     }
 
     private void OnBroadcasterMessage(TwitchChatMessage message)

@@ -16,8 +16,12 @@ public class UIChatMessage : MonoBehaviour
 
     public RectTransform rectTransform { get { return (RectTransform)transform; } }
 
+    private Animator animator;
+
     private void Start()
     {
+        animator = GetComponent<Animator>();
+
         nameText.text = message.User.DisplayName;
         messageText.text = message.Message;
 
@@ -27,13 +31,19 @@ public class UIChatMessage : MonoBehaviour
 
     private void Update()
     {
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, ((messageText.textInfo.lineCount + 1) * 20) + 30);
-        Debug.Log("line count: " + messageText.textInfo.lineCount);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, (messageText.textInfo.lineCount * 20) + 30);
+        //Debug.Log("line count: " + messageText.textInfo.lineCount);
     }
 
     IEnumerator DestroyTimer()
     {
         yield return new WaitForSeconds(destroyAfterSeconds);
+
+        animator.SetTrigger("close");
+    }
+
+    public void Destroy()
+    {
         Destroy(gameObject);
     }
 }

@@ -16,6 +16,7 @@ namespace TwitchChatConnect.Parser
         public int Bits { get; }
         public IReadOnlyList<TwitchUserBadge> Badges { get; }
 
+        public bool EmoteOnly = false;
         public List<Tuple<TwitchEmote, int, int>> Emotes { get; } = new List<Tuple<TwitchEmote, int, int>>();
 
         public string rawMessage { get; }
@@ -48,7 +49,9 @@ namespace TwitchChatConnect.Parser
                 Bits += bitsAmount;
             }
 
-            Debug.Log(rawMessage);
+            Match emoteOnly = Regex.Match(command.Message, @"emote-only=1;");
+            EmoteOnly = emoteOnly.Success;
+
             MatchCollection emoteMatches = TwitchChatRegex.EmoteRegex.Matches(command.Message);
             foreach (Match match in emoteMatches)
             {

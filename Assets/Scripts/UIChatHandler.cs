@@ -33,6 +33,9 @@ public class UIChatHandler : MonoBehaviour
 
     void OnChatMessageRecieved(TwitchChatMessage message)
     {
+        if (message.EmoteOnly)
+            return;
+
         foreach (string bannedWord in bannedWords)
         {
             if (message.Message.Contains(bannedWord))

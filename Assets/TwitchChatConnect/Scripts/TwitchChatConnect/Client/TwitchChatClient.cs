@@ -242,7 +242,7 @@ namespace TwitchChatConnect.Client
                 case TwitchInputType.MESSAGE_CHAT:
                     {
                         TwitchChatMessageParser payload = new TwitchChatMessageParser(inputLine);
-                        TwitchChatMessage chatMessage = new TwitchChatMessage(payload.User, payload.Sent, payload.Bits, payload.Emotes, payload.Id);
+                        TwitchChatMessage chatMessage = new TwitchChatMessage(payload.User, payload.Sent, payload.Bits, payload.Emotes, payload.Id, payload.EmoteOnly);
 
                         if (chatMessage.User.DisplayName.ToLower() == _twitchConnectConfig.ChannelName.ToLower())
                             onBroadcasterMessageReceived?.Invoke(chatMessage);

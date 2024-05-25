@@ -10,7 +10,7 @@ public class AvatarController2D: MonoBehaviour
 {
     public Image sprite;
 
-    public Sprite normal;
+    public Sprite idle;
     public Sprite blinking;
     public Sprite talking;
     public Sprite blinking_talking;
@@ -76,6 +76,6 @@ public class AvatarController2D: MonoBehaviour
         if (isBlinking)
             sprite.sprite = isTalking ? blinking_talking : blinking;
         else
-            sprite.sprite = isTalking ? talking : normal;
+            sprite.sprite = isTalking ? talking : idle;
     }
 }

@@ -33,10 +33,10 @@ public class SettingLoader : MonoBehaviour
 
         spoutReceiver.sharingName = settings.spout_source_name;
 
-        avatarController.idle = LoadSpriteFromFile(settings.idle_texture);
-        avatarController.blinking = LoadSpriteFromFile(settings.blinking_texture);
-        avatarController.talking = LoadSpriteFromFile(settings.talking_texture);
-        avatarController.blinking_talking = LoadSpriteFromFile(settings.talking_blinking_texture);
+        avatarController.idle_sprite = LoadSpriteFromFile(settings.idle_texture);
+        avatarController.blinking_sprite = LoadSpriteFromFile(settings.blinking_texture);
+        avatarController.talking_sprite = LoadSpriteFromFile(settings.talking_texture);
+        avatarController.blinking_talking_sprite = LoadSpriteFromFile(settings.talking_blinking_texture);
     }
 
     public static Sprite LoadSpriteFromFile(string path, float pixelsPerUnit = 100f)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TwitchChatConnect.Client;
 using TwitchChatConnect.Data;
-using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +10,13 @@ public class AvatarController2D: MonoBehaviour
 {
     public Image sprite;
 
-    public Sprite idle;
-    public Sprite blinking;
-    public Sprite talking;
-    public Sprite blinking_talking;
+    public Sprite idle_sprite;
+    public Sprite blinking_sprite;
+    public Sprite talking_sprite;
+    public Sprite blinking_talking_sprite;
+
+    public float minBlinkTime;
+    public float maxBlinkTime;
 
     private bool isBlinking;
     private bool isTalking;
@@ -74,8 +77,8 @@ public class AvatarController2D: MonoBehaviour
     private void UpdateSprite()
     {
         if (isBlinking)
-            sprite.sprite = isTalking ? blinking_talking : blinking;
+            sprite.sprite = isTalking ? blinking_talking_sprite : blinking_sprite;
         else
-            sprite.sprite = isTalking ? talking : idle;
+            sprite.sprite = isTalking ? talking_sprite : idle_sprite;
     }
 }

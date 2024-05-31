@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TwitchChatConnect.Client;
 using TwitchChatConnect.Data;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,9 +16,12 @@ public class AvatarController2D: MonoBehaviour
 
     public float minBlinkTime;
     public float maxBlinkTime;
+    public float blinkLength = 0.5f;
 
     private bool isBlinking;
     private bool isTalking;
+
+    private bool canBlink { get { return (blinking_sprite != null) && (blinking_talking_sprite  != null); } }
 
     private Queue<TwitchChatMessage> messageQueue = new Queue<TwitchChatMessage>();
 
@@ -29,6 +31,7 @@ public class AvatarController2D: MonoBehaviour
     [Min(0.01f)]
     public float spriteMovementSpeed = 1.0f;
     public float spriteMovementScale = 1f;
+
     Vector2 spriteTarget;
     public float minDistanceToNewTarget = 0.05f;
     public float distanceThreshold = 0.05f;
@@ -37,6 +40,9 @@ public class AvatarController2D: MonoBehaviour
 
     private void Start()
     {
+        if (canBlink)
+            StartCoroutine(Blink());
+
         UpdateSprite();
 
         spriteTarget = GetRandomTarget();
@@ -46,10 +52,16 @@ public class AvatarController2D: MonoBehaviour
 
     private void Update()
     {
+        if (isTalking && speechBubble == null)
+        {
+            isTalking = false;
+        }
+
         if (messageQueue.Count > 0 && speechBubble == null)
         {
             speechBubble = Instantiate(speechBubblePrefab, transform);
             speechBubble.message = messageQueue.Dequeue();
+            isTalking = true;
         }
 
         UpdateSprite();
@@ -80,5 +92,16 @@ public class AvatarController2D: MonoBehaviour
             sprite.sprite = isTalking ? blinking_talking_sprite : blinking_sprite;
         else
             sprite.sprite = isTalking ? talking_sprite : idle_sprite;
+    }
+
+    private IEnumerator Blink()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(minBlinkTime, maxBlinkTime));
+            isBlinking = true;
+            yield return new WaitForSeconds(blinkLength);
+            isBlinking = false;
+        }
     }
 }

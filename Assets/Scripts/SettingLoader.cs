@@ -15,6 +15,14 @@ public class SettingLoader : MonoBehaviour
 
     void Start()
     {
+        LoadSettings();
+        InputManager.OnRefresh += LoadSettings;
+    }
+
+    void LoadSettings()
+    {
+        Debug.Log("Loading config!");
+
         if (!File.Exists(configPath))
         {
             using (StreamWriter file = new StreamWriter(configPath, false))
@@ -33,10 +41,12 @@ public class SettingLoader : MonoBehaviour
 
         spoutReceiver.sharingName = settings.spout_source_name;
 
+#if !UNITY_EDITOR
         avatarController.idle_sprite = LoadSpriteFromFile(settings.idle_texture);
         avatarController.blinking_sprite = LoadSpriteFromFile(settings.blinking_texture);
         avatarController.talking_sprite = LoadSpriteFromFile(settings.talking_texture);
         avatarController.blinking_talking_sprite = LoadSpriteFromFile(settings.talking_blinking_texture);
+#endif
     }
 
     public static Sprite LoadSpriteFromFile(string path, float pixelsPerUnit = 100f)

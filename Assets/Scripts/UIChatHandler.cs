@@ -14,6 +14,14 @@ public class UIChatHandler : MonoBehaviour
 
     void Start()
     {
+        InitializeChat();
+        InputManager.OnRefresh += InitializeChat;
+    }
+
+    public void InitializeChat()
+    {
+        Debug.Log("Initialising chat!");
+
         TwitchChatClient.instance.Init(TwitchChatInitialized, TwitchChatInitializationError);
         TwitchChatClient.instance.onChatMessageReceived += OnChatMessageRecieved;
 
@@ -28,7 +36,7 @@ public class UIChatHandler : MonoBehaviour
 
     void TwitchChatInitializationError(string error)
     {
-        Debug.Log("Twitch chat initialization error: " + error);
+        Debug.LogError("Twitch chat initialization error: " + error);
     }
 
     void OnChatMessageRecieved(TwitchChatMessage message)

@@ -12,6 +12,7 @@ public class SettingLoader : MonoBehaviour
 
     public SpoutReceiver spoutReceiver;
     public AvatarController2D avatarController;
+    public WebcamInput hdmiInput;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class SettingLoader : MonoBehaviour
         }
 
         spoutReceiver.sharingName = settings.spout_source_name;
+        hdmiInput.Init(settings.captureCardDeviceName);
 
 #if !UNITY_EDITOR
         avatarController.idle_sprite = LoadSpriteFromFile(settings.idle_texture);
@@ -62,7 +64,8 @@ public class SettingLoader : MonoBehaviour
                 return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width/2f, tex.height/2f), pixelsPerUnit); ;
         }
 
-        throw new IOException("Error loading sprite \"" + path + "\"");
+        Debug.LogError("Error loading sprite \"" + path + "\"");
+        return null;
     }
 }
 
@@ -70,6 +73,8 @@ public class SettingLoader : MonoBehaviour
 public class SettingsData
 {
     public string spout_source_name = "Any";
+
+    public string captureCardDeviceName = "";
 
     public string idle_texture = "";
     public string blinking_texture = "";

@@ -17,6 +17,7 @@ public class WebcamInput : MonoBehaviour
     public void Init(string deviceName)
     {
         captureCard = new WebCamTexture(deviceName);
+        Debug.Log("capture card: " + captureCard.name); //TODO: null for some reason???
     }
 
     public void Enable()

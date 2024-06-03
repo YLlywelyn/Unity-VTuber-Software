@@ -8,24 +8,30 @@ public class WebcamInput : MonoBehaviour
     WebCamTexture captureCard;
 
     Image image;
+    RawImage rawImage;
 
     void Start()
     {
         image = GetComponent<Image>();
+        if (image == null )
+            rawImage = GetComponent<RawImage>();
     }
 
     public void Init(string deviceName)
     {
         captureCard = new WebCamTexture(deviceName);
-        Debug.Log("capture card: " + captureCard.name); //TODO: null for some reason???
     }
 
-    public void Enable()
+    void OnEnable()
     {
         captureCard.Play();
-        image.material.mainTexture = captureCard;
+
+        if (image != null )
+            image.material.mainTexture = captureCard;
+        else if (rawImage != null)
+            rawImage.material.mainTexture = captureCard;
     }
-    public void Disable()
+    void OnDisable()
     {
         captureCard.Stop();
     }

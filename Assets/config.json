@@ -1,7 +1,7 @@
 {
 	"spout_source_name": "Any",
 	"captureCardDeviceName": "Game Capture HD60 X",
-	
+
 	"idle_texture": "C:/Users/Ylva/Documents/Projects/Unity VTuber Software/Assets/Textures/Avatar/idle.png",
 	"blinking_texture": "",
 	"talking_texture": "C:/Users/Ylva/Documents/Projects/Unity VTuber Software/Assets/Textures/Avatar/talking.png",

@@ -24,6 +24,9 @@ public class WebcamInput : MonoBehaviour
 
     void OnEnable()
     {
+        if (captureCard == null)
+            return;
+
         captureCard.Play();
 
         if (image != null )
@@ -33,6 +36,10 @@ public class WebcamInput : MonoBehaviour
     }
     void OnDisable()
     {
+
+        if (captureCard == null)
+            return;
+
         captureCard.Stop();
     }
 }

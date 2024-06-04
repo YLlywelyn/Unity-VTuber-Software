@@ -5784,7 +5784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chatMessagePrefab: {fileID: 5493307027611291254, guid: 0b24bd36444babc45bfbb420a008ec9d,
     type: 3}
-  handleBroadcasterMessages: 0
+  handleBroadcasterMessages: 1
   bannedWords: []
 --- !u!114 &1149156324
 MonoBehaviour:

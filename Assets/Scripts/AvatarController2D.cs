@@ -25,8 +25,8 @@ public class AvatarController2D: MonoBehaviour
 
     private Queue<TwitchChatMessage> messageQueue = new Queue<TwitchChatMessage>();
 
-    public UISpeechBubble speechBubblePrefab;
-    private UISpeechBubble speechBubble;
+    public UIChatMessage speechBubblePrefab;
+    private UIChatMessage speechBubble;
 
     [Min(0.01f)]
     public float spriteMovementSpeed = 1.0f;

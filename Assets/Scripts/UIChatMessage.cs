@@ -22,16 +22,24 @@ public class UIChatMessage : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        nameText.text = message.User.DisplayName;
+        if (nameText != null )
+            nameText.text = message.User.DisplayName;
         messageText.text = message.Message;
 
+        UITypewriter uITypewriter = messageText.GetComponent<UITypewriter>();
+
         if (destroyAfterSeconds > 0f)
-            StartCoroutine(DestroyTimer());
+        {
+            if (uITypewriter != null)
+                uITypewriter.OnTypeWriterFinished += () => StartCoroutine(DestroyTimer());
+            else
+                StartCoroutine(DestroyTimer());
+        }
     }
 
     private void Update()
     {
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, (messageText.textInfo.lineCount * 20) + 30);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, (messageText.textInfo.lineCount * messageText.textInfo.lineInfo[0].lineHeight) + 30);
         //Debug.Log("line count: " + messageText.textInfo.lineCount);
     }
 

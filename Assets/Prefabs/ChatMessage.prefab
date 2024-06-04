@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6022266859317132449}
   - component: {fileID: 4528826520288952176}
+  - component: {fileID: 640152244319183536}
   - component: {fileID: 9220398202582979963}
   m_Layer: 5
   m_Name: Message Text
@@ -45,6 +46,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4031468996377751317}
   m_CullTransparentMesh: 1
+--- !u!114 &640152244319183536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031468996377751317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c0cf95fbfc84240931fc6a9f318e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startOnStart: 1
+  secondsPerChar: 0.1
 --- !u!114 &9220398202582979963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae7d3d9757af3746bd8e7650d8820b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyAfterSeconds: 30
+  destroyAfterSeconds: 10
   nameText: {fileID: 3423646432670823246}
   messageText: {fileID: 9220398202582979963}
 --- !u!95 &3648202304564350410

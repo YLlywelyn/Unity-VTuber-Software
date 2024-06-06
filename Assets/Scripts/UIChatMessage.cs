@@ -11,6 +11,9 @@ public class UIChatMessage : MonoBehaviour
     public float destroyAfterSeconds = 30f;
     public TwitchChatMessage message;
 
+    [Tooltip("Height = (lineHeight * lineCount) + heightModifier")]
+    public int heightModifier = 40;
+
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI messageText;
 
@@ -39,18 +42,19 @@ public class UIChatMessage : MonoBehaviour
 
     private void Update()
     {
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, (messageText.textInfo.lineCount * messageText.textInfo.lineInfo[0].lineHeight) + 30);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, (messageText.textInfo.lineCount * messageText.textInfo.lineInfo[0].lineHeight) + heightModifier);
         //Debug.Log("line count: " + messageText.textInfo.lineCount);
     }
 
     IEnumerator DestroyTimer()
     {
+        Debug.Log("Starting destroy timer for " + this.name);
         yield return new WaitForSeconds(destroyAfterSeconds);
 
         animator.SetTrigger("close");
     }
 
-    public void Destroy()
+    public void DestroySelf()
     {
         Destroy(gameObject);
     }

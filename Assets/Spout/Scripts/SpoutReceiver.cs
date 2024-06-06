@@ -12,8 +12,9 @@ using UnityEngine.UI;
 namespace Spout{
 [Serializable]
 	[ExecuteInEditMode]
-	public class SpoutReceiver : MonoBehaviour {
-		
+	public class SpoutReceiver : MonoBehaviour
+	{
+
 		[SerializeField]
 		private string _sharingName;
 

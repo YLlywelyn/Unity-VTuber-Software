@@ -8,7 +8,8 @@ public class SettingLoader : MonoBehaviour
 {
     public SettingsData settings { get; private set; }
 
-    string configPath { get { return Path.Combine(Application.dataPath, "config.json"); } }
+    public string configPath = "Config/config.json";
+    string _configPath { get { return Path.Combine(Application.dataPath, configPath); } }
 
     public SpoutReceiver spoutReceiver;
     public AvatarController2D avatarController;
@@ -24,9 +25,9 @@ public class SettingLoader : MonoBehaviour
     {
         Debug.Log("Loading config!");
 
-        if (!File.Exists(configPath))
+        if (!File.Exists(_configPath))
         {
-            using (StreamWriter file = new StreamWriter(configPath, false))
+            using (StreamWriter file = new StreamWriter(_configPath, false))
             {
                 settings = new SettingsData();
                 file.Write(JsonUtility.ToJson(settings));
@@ -34,7 +35,7 @@ public class SettingLoader : MonoBehaviour
         }
         else
         {
-            using (StreamReader file = new StreamReader(configPath))
+            using (StreamReader file = new StreamReader(_configPath))
             {
                 settings = JsonUtility.FromJson<SettingsData>(file.ReadToEnd());
             }

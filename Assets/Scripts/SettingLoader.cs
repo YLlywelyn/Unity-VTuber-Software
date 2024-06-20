@@ -16,6 +16,8 @@ public class SettingLoader : MonoBehaviour
     public AvatarController2D avatarController;
     public WebcamInput hdmiInput;
 
+    public OpenAIWrapper openAIWrapper;
+
     public static SettingLoader instance { get; private set; }
 
     void Start()
@@ -55,6 +57,8 @@ public class SettingLoader : MonoBehaviour
         spoutReceiver.sharingName = _settings.spout_source_name;
         hdmiInput.Init(_settings.captureCardDeviceName);
 
+        openAIWrapper.SetAPIKey(_settings.openai_api_key);
+
 #if !UNITY_EDITOR
         avatarController.idle_sprite = LoadSpriteFromFile(_settings.idle_texture);
         avatarController.blinking_sprite = LoadSpriteFromFile(_settings.blinking_texture);
@@ -87,6 +91,8 @@ public class SettingsData
     public string spout_source_name = "Any";
 
     public string captureCardDeviceName = "";
+
+    public string openai_api_key = "";
 
     public string idle_texture = "";
     public string blinking_texture = "";

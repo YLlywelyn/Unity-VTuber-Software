@@ -13,6 +13,26 @@ namespace TwitchChatConnect.Data
         public string Message { get; }
         public int Bits;
 
+        public string MessageWithoutEmotes
+        {
+            get
+            {
+                if (EmoteOnly) return Message;
+
+                string text = Message;
+
+                if (Emotes.Count > 0)
+                {
+                    foreach (System.Tuple<TwitchEmote, int, int> emote in Emotes)
+                    {
+                        text = text.Remove(emote.Item2, (emote.Item3 - emote.Item2) + 1);
+                    }
+                }
+
+                return text;
+            }
+        }
+
         public bool IsHighlighted => _idMessage == MESSAGE_HIGHLIGHTED;
 
         public bool EmoteOnly { get; }

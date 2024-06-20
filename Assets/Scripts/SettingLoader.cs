@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class SettingLoader : MonoBehaviour
 {
-    public SettingsData settings { get; private set; }
+    public SettingsData _settings { get; private set; }
+    public static SettingsData settings { get { return instance._settings; } }
 
     public string configPath = "Config/config.json";
     string _configPath { get { return Path.Combine(Application.dataPath, configPath); } }
@@ -15,8 +16,18 @@ public class SettingLoader : MonoBehaviour
     public AvatarController2D avatarController;
     public WebcamInput hdmiInput;
 
+    public static SettingLoader instance { get; private set; }
+
     void Start()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+
         LoadSettings();
         InputManager.OnRefresh += LoadSettings;
     }
@@ -29,26 +40,26 @@ public class SettingLoader : MonoBehaviour
         {
             using (StreamWriter file = new StreamWriter(_configPath, false))
             {
-                settings = new SettingsData();
-                file.Write(JsonUtility.ToJson(settings));
+                _settings = new SettingsData();
+                file.Write(JsonUtility.ToJson(_settings));
             }
         }
         else
         {
             using (StreamReader file = new StreamReader(_configPath))
             {
-                settings = JsonUtility.FromJson<SettingsData>(file.ReadToEnd());
+                _settings = JsonUtility.FromJson<SettingsData>(file.ReadToEnd());
             }
         }
 
-        spoutReceiver.sharingName = settings.spout_source_name;
-        hdmiInput.Init(settings.captureCardDeviceName);
+        spoutReceiver.sharingName = _settings.spout_source_name;
+        hdmiInput.Init(_settings.captureCardDeviceName);
 
 #if !UNITY_EDITOR
-        avatarController.idle_sprite = LoadSpriteFromFile(settings.idle_texture);
-        avatarController.blinking_sprite = LoadSpriteFromFile(settings.blinking_texture);
-        avatarController.talking_sprite = LoadSpriteFromFile(settings.talking_texture);
-        avatarController.blinking_talking_sprite = LoadSpriteFromFile(settings.talking_blinking_texture);
+        avatarController.idle_sprite = LoadSpriteFromFile(_settings.idle_texture);
+        avatarController.blinking_sprite = LoadSpriteFromFile(_settings.blinking_texture);
+        avatarController.talking_sprite = LoadSpriteFromFile(_settings.talking_texture);
+        avatarController.blinking_talking_sprite = LoadSpriteFromFile(_settings.talking_blinking_texture);
 #endif
     }
 

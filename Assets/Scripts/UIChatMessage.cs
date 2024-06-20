@@ -27,7 +27,7 @@ public class UIChatMessage : MonoBehaviour
 
         if (nameText != null )
             nameText.text = message.User.DisplayName;
-        messageText.text = message.Message;
+        messageText.text = message.MessageWithoutEmotes;
 
         UITypewriter uITypewriter = messageText.GetComponent<UITypewriter>();
 

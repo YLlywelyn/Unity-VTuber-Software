@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyAfterSeconds: 15
+  heightModifier: 40
   nameText: {fileID: 0}
   messageText: {fileID: 4281569369725895158}
 --- !u!95 &9133228334464472169
@@ -173,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startOnStart: 1
-  secondsPerChar: 0.1
+  secondsPerChar: 0.075
 --- !u!114 &4281569369725895158
 MonoBehaviour:
   m_ObjectHideFlags: 0

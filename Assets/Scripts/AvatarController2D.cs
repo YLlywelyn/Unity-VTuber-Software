@@ -28,6 +28,8 @@ public class AvatarController2D: MonoBehaviour
     public UIChatMessage speechBubblePrefab;
     private UIChatMessage speechBubble;
 
+    public TTSManager ttsManager;
+
     [Min(0.01f)]
     public float spriteMovementSpeed = 1.0f;
     public float spriteMovementScale = 1f;
@@ -59,8 +61,13 @@ public class AvatarController2D: MonoBehaviour
 
         if (messageQueue.Count > 0 && speechBubble == null)
         {
+            TwitchChatMessage message = messageQueue.Dequeue();
+
             speechBubble = Instantiate(speechBubblePrefab, transform);
-            speechBubble.message = messageQueue.Dequeue();
+            speechBubble.message = message;
+
+            ttsManager.SynthesizeAndPlay(message.MessageWithoutEmotes);
+            
             isTalking = true;
         }
 

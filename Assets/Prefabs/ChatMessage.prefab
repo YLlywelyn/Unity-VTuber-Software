@@ -82,8 +82,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 73dc268cec02bb44b99d70cfb0ac62ec, type: 2}
+  m_sharedMaterial: {fileID: 3800380232997812019, guid: 73dc268cec02bb44b99d70cfb0ac62ec,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -241,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyAfterSeconds: 10
+  heightModifier: 40
   nameText: {fileID: 3423646432670823246}
   messageText: {fileID: 9220398202582979963}
 --- !u!95 &3648202304564350410
@@ -407,8 +409,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Username of Identifying
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 73dc268cec02bb44b99d70cfb0ac62ec, type: 2}
+  m_sharedMaterial: {fileID: 3800380232997812019, guid: 73dc268cec02bb44b99d70cfb0ac62ec,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

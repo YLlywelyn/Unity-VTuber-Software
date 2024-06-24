@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae7d3d9757af3746bd8e7650d8820b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyAfterSeconds: 15
+  destroyAfterSeconds: 7.5
   heightModifier: 40
   nameText: {fileID: 0}
   messageText: {fileID: 4281569369725895158}
@@ -197,8 +197,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Lorem Ipsum <3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 73dc268cec02bb44b99d70cfb0ac62ec, type: 2}
+  m_sharedMaterial: {fileID: 3800380232997812019, guid: 73dc268cec02bb44b99d70cfb0ac62ec,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

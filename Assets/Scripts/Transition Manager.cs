@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class TransitionManager : MonoBehaviour
 {
-    public static TransitionManager instance { get; private set; }
     public bool transitioning { get; private set; }
 
     [Min(0f)]
@@ -19,14 +18,8 @@ public class TransitionManager : MonoBehaviour
         set { fullScreenMaterial.SetFloat(propertyName, value); }
     }
 
-    void Awake()
+    void Start()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
         FadeIn();
     }
 

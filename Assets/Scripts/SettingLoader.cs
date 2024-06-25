@@ -9,8 +9,12 @@ public class SettingLoader : MonoBehaviour
     public SettingsData _settings { get; private set; }
     public static SettingsData settings { get { return instance._settings; } }
 
+#if UNITY_EDITOR
     public string configPath = "Config/config.json";
     string _configPath { get { return Path.Combine(Application.dataPath, configPath); } }
+#else
+    string _configPath { get { return Path.Combine(Application.dataPath, "../config.json"); } }
+#endif
 
     public SpoutReceiver spoutReceiver;
     public AvatarController2D avatarController;

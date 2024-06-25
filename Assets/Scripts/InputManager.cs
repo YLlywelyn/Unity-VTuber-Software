@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class InputManager : MonoBehaviour
 {
@@ -11,24 +12,25 @@ public class InputManager : MonoBehaviour
     public static Action OnRefresh;
 
     // TODO: Change from list to seperate vars and let sources specify which 'channel' they should be on.  Warn if channel is not null.
-    public static Action<int> OnSourceChange;
-    static List<SourceHandler> SourceList = new List<SourceHandler>();
-
+    public static Action<string> OnSourceChange;
+    static Dictionary<string, SourceHandler> SourceList = new Dictionary<string, SourceHandler>();
+    
     public KeyCode RefreshKey = KeyCode.F5;
 
-    public KeyCode SourceKey = KeyCode.S;
+    public KeyCode SourceModifierKey = KeyCode.S;
 
     void Start()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            OnSourceChange.Invoke(0);
-        }
-        else
             Destroy(gameObject);
+            return;
+        }
+        
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        OnSourceChange.Invoke(string.Empty);
     }
 
     void Update()
@@ -36,34 +38,24 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyUp(RefreshKey))
             OnRefresh.Invoke();
 
-        if (Input.GetKey(SourceKey))
+        if (Input.GetKey(SourceModifierKey))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0))
-                OnSourceChange.Invoke(0);
-
-            if (SourceList.Count >= 1)
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                    OnSourceChange.Invoke(1);
-
-            if (SourceList.Count >= 2)
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                    OnSourceChange.Invoke(2);
-
-            if (SourceList.Count >= 3)
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                    OnSourceChange.Invoke(3);
+            foreach (SourceHandler source in SourceList.Values)
+            {
+                if (Input.GetKeyDown(source.key))
+                    OnSourceChange.Invoke(source.sourceID);
+            }
         }
     }
 
-    public static int RegisterSource(SourceHandler source)
+    public static void RegisterSource(SourceHandler source)
     {
-        if (SourceList.Contains(source))
-            Debug.Log("Re-registering source " + source.name);
+        if (SourceList.ContainsKey(source.sourceID))
+            Debug.Log("Re-registering source " + source.sourceID);
         else
         {
-            SourceList.Add(source);
+            SourceList.Add(source.sourceID, source);
             OnSourceChange += source.OnSourceChange;
         }
-        return SourceList.IndexOf(source) + 1;
     }
 }

@@ -8,7 +8,7 @@ public class CopyToBuildFolder : Editor, IPostprocessBuildWithReport
 {
     public int callbackOrder => 0;
 
-    public static readonly string[] filesToCopy = { "SpoutWinCapture.exe" };
+    public static readonly string[] filesToCopy = { "SpoutWinCapture.exe", "Assets/Config/config.json" };
 
     public void OnPostprocessBuild(BuildReport report)
     {
@@ -29,6 +29,6 @@ public class CopyToBuildFolder : Editor, IPostprocessBuildWithReport
             }
         }
 
-        Debug.Log(string.Format("Output Dir: '{0}'", dir));
+        //Debug.Log(string.Format("Output Dir: '{0}'", dir));
     }
 }

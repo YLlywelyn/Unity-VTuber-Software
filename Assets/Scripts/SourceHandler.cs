@@ -6,15 +6,17 @@ using UnityEngine;
 
 public class SourceHandler : MonoBehaviour
 {
-    int sourceID;
+    public string sourceID;
+    public KeyCode key;
+
     public GameObject sourceObject;
 
     void Start()
     {
-        sourceID = InputManager.RegisterSource(this);
+        InputManager.RegisterSource(this);
     }
 
-    public void OnSourceChange(int sourceID)
+    public void OnSourceChange(string sourceID)
     {
         sourceObject.SetActive(sourceID == this.sourceID);
     }

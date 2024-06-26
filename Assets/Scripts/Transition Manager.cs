@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class TransitionManager : MonoBehaviour
 {
+    public static TransitionManager instance;
+
     public bool transitioning { get; private set; }
 
     [Min(0f)]
@@ -20,6 +22,13 @@ public class TransitionManager : MonoBehaviour
 
     void Start()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
         FadeIn();
     }
 
@@ -37,7 +46,8 @@ public class TransitionManager : MonoBehaviour
         transitioning = false;
     }
 
-    IEnumerator TransitionToScene(int index)
+    public static void TransitionToScene(int index) => instance.StartCoroutine(instance._TransitionToScene(index));
+    IEnumerator _TransitionToScene(int index)
     {
         yield return new WaitUntil(() => !transitioning);
         FadeOut();

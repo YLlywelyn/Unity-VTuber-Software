@@ -16,9 +16,7 @@ public class SettingLoader : MonoBehaviour
     string _configPath { get { return Path.Combine(Application.dataPath, "../config.json"); } }
 #endif
 
-    public SpoutReceiver spoutReceiver;
     public AvatarController2D avatarController;
-    public WebcamInput hdmiInput;
 
     public OpenAIWrapper openAIWrapper;
 
@@ -58,9 +56,6 @@ public class SettingLoader : MonoBehaviour
             }
         }
 
-        spoutReceiver.sharingName = _settings.spout_source_name;
-        hdmiInput.Init(_settings.captureCardDeviceName);
-
         openAIWrapper.SetAPIKey(_settings.openai_api_key);
 
 #if !UNITY_EDITOR
@@ -92,10 +87,6 @@ public class SettingLoader : MonoBehaviour
 [System.Serializable]
 public class SettingsData
 {
-    public string spout_source_name = "Any";
-
-    public string captureCardDeviceName = "";
-
     public string openai_api_key = "";
 
     public string idle_texture = "";
